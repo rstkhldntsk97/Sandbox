@@ -1,0 +1,17 @@
+#spring:
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/user-db
+#    password: postgres
+#    username: postgres
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
