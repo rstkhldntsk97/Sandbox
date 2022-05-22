@@ -29,7 +29,7 @@ public class UserAssembler extends RepresentationModelAssemblerSupport<UserDTO, 
         Link post = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).createUser(entity)).withRel(POST);
         Link patch = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).patchUpdateUser(entity.getUsername(), entity)).withRel(PATCH);
 
-        userModel.add(get, post, put);
+        userModel.add(get, post, put, patch);
 
         return userModel;
     }

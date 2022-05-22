@@ -38,13 +38,11 @@ public class UsersService {
         return mappingService.mapUserToUserDTO(persistedUser);
     }
 
-    @Transactional
     public List<UserDTO> getAll() {
         List<User> usersList = usersRepository.findAll();
         return usersList.stream().map(mappingService::mapUserToUserDTO).collect(Collectors.toList());
     }
 
-    @Transactional
     public UserDTO getByUsername(String username) {
         User user = usersRepository.getUserByUsername(username).orElseThrow(UserNotFoundException::new);
         return mappingService.mapUserToUserDTO(user);
