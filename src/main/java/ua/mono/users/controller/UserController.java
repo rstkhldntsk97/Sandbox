@@ -20,21 +20,31 @@ public class UserController implements UserApi {
 
     private final UserAssembler userAssembler;
 
+    @Override
     public ResponseEntity<UserModel> createUser(UserDTO userDto) {
         UserDTO user = usersService.createUser(userDto);
         return new ResponseEntity<>(userAssembler.toModel(user), HttpStatus.CREATED);
     }
 
-    public ResponseEntity<UserModel> updateUser(String username, UserDTO userDto) {
-        UserDTO user = usersService.updateUser(username, userDto);
+    @Override
+    public ResponseEntity<UserModel> putUpdateUser(String username, UserDTO userDto) {
+        UserDTO user = usersService.putUpdateUser(username, userDto);
         return new ResponseEntity<>(userAssembler.toModel(user), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<UserModel> patchUpdateUser(String username, UserDTO userDto) {
+        UserDTO user = usersService.patchUpdateUser(username, userDto);
+        return new ResponseEntity<>(userAssembler.toModel(user), HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<UserModel> getByUsername(String username) {
         UserDTO user = usersService.getByUsername(username);
         return new ResponseEntity<>(userAssembler.toModel(user), HttpStatus.OK);
     }
 
+    @Override
     public List<UserDTO> getAll() {
         return usersService.getAll();
     }

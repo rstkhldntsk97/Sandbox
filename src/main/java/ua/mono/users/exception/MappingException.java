@@ -4,6 +4,12 @@ import ua.mono.users.model.enums.ErrorType;
 
 public class MappingException extends ServiceException {
 
+    private static final String DEFAULT_MESSAGE = "Unexpected error during mapping";
+
+    public MappingException() {
+        super(DEFAULT_MESSAGE);
+    }
+
     public MappingException(String message) {
         super(message);
     }

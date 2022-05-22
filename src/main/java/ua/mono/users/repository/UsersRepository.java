@@ -1,17 +1,14 @@
 package ua.mono.users.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import ua.mono.users.model.User;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface UsersRepository {
+@Repository
+public interface UsersRepository extends JpaRepository<User, Long> {
 
-    User findByUsername(String username);
-
-    User save(User user);
-
-    List<User> findAll();
-
-    User update(String username, User user);
+    Optional<User> getUserByUsername(String username);
 
 }

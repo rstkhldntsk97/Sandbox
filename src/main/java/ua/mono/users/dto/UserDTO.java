@@ -1,17 +1,22 @@
 package ua.mono.users.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ua.mono.users.dto.group.OnCreate;
 import ua.mono.users.dto.group.OnUpdate;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.Size;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
@@ -31,10 +36,10 @@ public class UserDTO {
 
     @Null(message = "Password should be absent in request", groups = OnUpdate.class)
     @NotBlank(message = "Password shouldn't be empty", groups = OnCreate.class)
-//    @Min(message = "Minimum length is 8 characters", value = 8)
+    @Size(message = "Minimum length is 8 characters", min = 8, max = 25)
     private String password;
 
-    @Null(message = "Password should be absent in request", groups = OnUpdate.class)
+    @Null(message = "Must be equal to password", groups = OnUpdate.class)
     @NotBlank(message = "Repeat password is required", groups = OnCreate.class)
     private String repeatPassword;
 

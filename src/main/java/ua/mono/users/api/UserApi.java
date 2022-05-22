@@ -24,11 +24,18 @@ public interface UserApi {
     ResponseEntity<UserModel> createUser(@RequestBody @Validated(OnCreate.class) UserDTO userDto);
 
     @PutMapping("update/{username}")
-    @Operation(description = "update user")
+    @Operation(description = "PUT update user")
     @Parameters({
             @Parameter(name = "username", in = ParameterIn.PATH, required= true, description = "Username")
     })
-    ResponseEntity<UserModel> updateUser(@PathVariable String username, @RequestBody @Validated(OnUpdate.class) UserDTO userDto);
+    ResponseEntity<UserModel> putUpdateUser(@PathVariable String username, @RequestBody @Validated(OnUpdate.class) UserDTO userDto);
+
+    @PatchMapping("update/{username}")
+    @Operation(description = "PATCH update user")
+    @Parameters({
+            @Parameter(name = "username", in = ParameterIn.PATH, required= true, description = "Username")
+    })
+    ResponseEntity<UserModel> patchUpdateUser(@PathVariable String username, @RequestBody @Validated(OnUpdate.class) UserDTO userDto);
 
     @GetMapping("/getByUsername/{username}")
     @Operation(description = "get user by it's username")

@@ -12,8 +12,9 @@ import ua.mono.users.dto.UserDTO;
 public class UserAssembler extends RepresentationModelAssemblerSupport<UserDTO, UserModel> {
 
     private static final String GET = "get_user";
-    private static final String PUT = "update_user";
+    private static final String PUT = "PUT_update_user";
     private static final String POST = "create_user";
+    private static final String PATCH = "PATCH_update_user";
 
     public UserAssembler() {
         super(UserController.class, UserModel.class);
@@ -24,8 +25,9 @@ public class UserAssembler extends RepresentationModelAssemblerSupport<UserDTO, 
         UserModel userModel = new UserModel(entity);
 
         Link get = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).getByUsername(entity.getUsername())).withRel(GET);
-        Link put = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).updateUser(entity.getUsername(), entity)).withRel(PUT);
+        Link put = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).putUpdateUser(entity.getUsername(), entity)).withRel(PUT);
         Link post = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).createUser(entity)).withRel(POST);
+        Link patch = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UserController.class).patchUpdateUser(entity.getUsername(), entity)).withRel(PATCH);
 
         userModel.add(get, post, put);
 

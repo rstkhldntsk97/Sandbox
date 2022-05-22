@@ -1,12 +1,12 @@
-#spring:
-#  jpa:
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/user-db
-#    password: postgres
-#    username: postgres
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users_db
+    password: postgres
+    username: postgres
 management:
   endpoints:
     web:
