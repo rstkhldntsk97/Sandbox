@@ -15,7 +15,6 @@
     <description>users-service</description>
     <properties>
         <java.version>11</java.version>
-        <springfox-swagger.version>3.0.0</springfox-swagger.version>
     </properties>
     <dependencies>
         <dependency>
@@ -40,14 +39,9 @@
             <version>2.7.0</version>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${springfox-swagger.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${springfox-swagger.version}</version>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.8</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
