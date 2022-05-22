@@ -5,11 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ua.mono.users.dto.UserDTO;
 import ua.mono.users.exception.MappingException;
-import ua.mono.users.exception.ServiceException;
 import ua.mono.users.model.User;
 import ua.mono.users.repository.UsersRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -38,7 +38,7 @@ public class UsersService {
 
     public List<UserDTO> getAll() {
         List<User> usersList = usersRepository.findAll();
-        return usersList.stream().map(this::mapUserToUserDTO).toList();
+        return usersList.stream().map(this::mapUserToUserDTO).collect(Collectors.toList());
     }
 
     public UserDTO getByUsername(String username) {
