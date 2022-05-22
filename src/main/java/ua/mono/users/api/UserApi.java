@@ -3,6 +3,7 @@ package ua.mono.users.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,14 +26,14 @@ public interface UserApi {
     @PutMapping("update/{username}")
     @Operation(description = "update user")
     @Parameters({
-            @Parameter(name = "username", required = true, description = "Username")
+            @Parameter(name = "username", in = ParameterIn.PATH, required= true, description = "Username")
     })
     ResponseEntity<UserModel> updateUser(@PathVariable String username, @RequestBody @Validated(OnUpdate.class) UserDTO userDto);
 
     @GetMapping("/getByUsername/{username}")
     @Operation(description = "get user by it's username")
     @Parameters({
-            @Parameter(name = "username", ref = "path", required = true, description = "Username")
+            @Parameter(name = "username", in = ParameterIn.PATH, required = true, description = "Username")
     })
     ResponseEntity<UserModel> getByUsername(@PathVariable String username);
 
