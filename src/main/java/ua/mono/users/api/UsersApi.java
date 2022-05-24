@@ -12,16 +12,21 @@ import ua.mono.users.controller.model.UserModel;
 import ua.mono.users.dto.UserDTO;
 import ua.mono.users.dto.group.OnCreate;
 import ua.mono.users.dto.group.OnUpdate;
+import ua.mono.users.model.User;
 
 import java.util.List;
 
 @Tag(name = "User management API")
 @RequestMapping("/api/v1/users")
-public interface UserApi {
+public interface UsersApi {
 
     @PostMapping("/create")
     @Operation(description = "create user")
     ResponseEntity<UserModel> createUser(@RequestBody @Validated(OnCreate.class) UserDTO userDto);
+
+    @PostMapping("/createUser")
+    @Operation(description = "create user")
+    ResponseEntity<User> createUser(@RequestBody User user);
 
     @PutMapping("update/{username}")
     @Operation(description = "PUT update user")
@@ -36,6 +41,13 @@ public interface UserApi {
             @Parameter(name = "username", in = ParameterIn.PATH, required= true, description = "Username")
     })
     ResponseEntity<UserModel> patchUpdateUser(@PathVariable String username, @RequestBody @Validated(OnUpdate.class) UserDTO userDto);
+
+    @DeleteMapping("delete/{username}")
+    @Operation(description = "delete user")
+    @Parameters({
+            @Parameter(name = "username", in = ParameterIn.PATH, required = true, description = "Username")
+    })
+    ResponseEntity<Void> deleteUser(@PathVariable String username);
 
     @GetMapping("/getByUsername/{username}")
     @Operation(description = "get user by it's username")

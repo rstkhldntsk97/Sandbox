@@ -12,12 +12,14 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("ClassCanBeRecord")
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UsersService {
 
     private final UsersRepository usersRepository;
+
     private final MappingService mappingService;
 
     @Transactional
@@ -38,6 +40,20 @@ public class UsersService {
         return mappingService.mapUserToUserDTO(persistedUser);
     }
 
+    @Transactional
+    public UserDTO patchUpdateUser(String username, UserDTO userDTO) {
+        User persistedUser = usersRepository.getUserByUsername(username).orElseThrow(UserNotFoundException::new);
+        mappingService.populateUserWithUserDtoFields(persistedUser, userDTO);
+        log.info("User with username {} is successfully updated", persistedUser.getUsername());
+        return mappingService.mapUserToUserDTO(persistedUser);
+    }
+
+    @Transactional
+    public void deleteUser(String username) {
+        User persistedUser = usersRepository.getUserByUsername(username).orElseThrow(() -> new UserNotFoundException("User does not exist"));
+        usersRepository.delete(persistedUser);
+    }
+
     public List<UserDTO> getAll() {
         List<User> usersList = usersRepository.findAll();
         return usersList.stream().map(mappingService::mapUserToUserDTO).collect(Collectors.toList());
@@ -46,14 +62,6 @@ public class UsersService {
     public UserDTO getByUsername(String username) {
         User user = usersRepository.getUserByUsername(username).orElseThrow(UserNotFoundException::new);
         return mappingService.mapUserToUserDTO(user);
-    }
-
-    @Transactional
-    public UserDTO patchUpdateUser(String username, UserDTO userDTO) {
-        User persistedUser = usersRepository.getUserByUsername(username).orElseThrow(UserNotFoundException::new);
-        mappingService.populateUserWithUserDtoFields(persistedUser, userDTO);
-        log.info("User with username {} is successfully updated", persistedUser.getUsername());
-        return mappingService.mapUserToUserDTO(persistedUser);
     }
 
 }
