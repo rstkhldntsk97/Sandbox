@@ -44,6 +44,8 @@ public class UsersService {
     public UserDTO patchUpdateUser(String username, UserDTO userDTO) {
         User persistedUser = usersRepository.getUserByUsername(username).orElseThrow(UserNotFoundException::new);
         mappingService.populateUserWithUserDtoFields(persistedUser, userDTO);
+        // this save would not be executed bc of hibernate optimization
+        // persistedUser = usersRepository.save(persistedUser);
         log.info("User with username {} is successfully updated", persistedUser.getUsername());
         return mappingService.mapUserToUserDTO(persistedUser);
     }

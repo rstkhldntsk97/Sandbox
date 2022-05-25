@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -42,5 +43,13 @@ public class UserDTO {
     @Null(message = "Must be equal to password", groups = OnUpdate.class)
     @NotBlank(message = "Repeat password is required", groups = OnCreate.class)
     private String repeatPassword;
+
+    @Null(message = "Field should be absent in request", groups = OnCreate.class)
+    @Null(message = "Field should be absent in request", groups = OnUpdate.class)
+    private LocalDateTime createdAt;
+
+    @Null(message = "Field should be absent in request", groups = OnCreate.class)
+    @Null(message = "Field should be absent in request", groups = OnUpdate.class)
+    private LocalDateTime updatedAt;
 
 }
